@@ -22,6 +22,7 @@ import com.rclabs.mcpgit.config.OllamaConfig
 case class OllamaRequest(
   model: String,
   prompt: String,
+  stream: Boolean = false,
   options: Map[String, Json] = Map.empty
 )
 
@@ -150,7 +151,7 @@ object OllamaClient {
          * @return String The formatted prompt for the AI model
          */
         private def generatePrompt(changeType: ChangeType, filePath: String, diff: String): String = {
-          val baseInstruction = "You are a git commit message generator. Return ONLY the commit message, nothing else. No explanations, no quotes, no extra text."
+          val baseInstruction = "Generate a single line git commit message. No explanations, no examples, no quotes. Just one clean commit message."
 
           val truncatedDiff = if (diff.length > 1000) diff.take(1000) + "..." else diff
 
@@ -158,55 +159,40 @@ object OllamaClient {
             case ChangeType.Added =>
               s"""$baseInstruction
                  
-                 Task: Generate a commit message for adding file: $filePath
+                 File added: $filePath
                  Changes:
                  $truncatedDiff
-                 
-                 Format: Use conventional commits (feat:, fix:, docs:, etc.) or simple present tense
-                 Examples: "Add user authentication", "feat: implement login system", "Create README file"
                  
                  Commit message:""".stripMargin
                  
             case ChangeType.Modified =>
               s"""$baseInstruction
                  
-                 Task: Generate a commit message for modifying file: $filePath
+                 File modified: $filePath
                  Changes:
                  $truncatedDiff
-                 
-                 Format: Use conventional commits (feat:, fix:, docs:, etc.) or simple present tense
-                 Examples: "Fix login validation", "Update API documentation", "Refactor user service"
                  
                  Commit message:""".stripMargin
                  
             case ChangeType.Deleted =>
               s"""$baseInstruction
                  
-                 Task: Generate a commit message for deleting file: $filePath
-                 
-                 Format: Use conventional commits or simple present tense
-                 Examples: "Remove deprecated API", "Delete unused components", "Clean up test files"
-                 
+                 File deleted: $filePath
+
                  Commit message:""".stripMargin
                  
             case ChangeType.Renamed =>
               s"""$baseInstruction
                  
-                 Task: Generate a commit message for renaming file: $filePath
-                 
-                 Format: Use conventional commits or simple present tense
-                 Examples: "Rename UserService to AuthService", "Move config files to settings/"
-                 
+                 File renamed: $filePath
+
                  Commit message:""".stripMargin
                  
             case ChangeType.Copied =>
               s"""$baseInstruction
                  
-                 Task: Generate a commit message for copying file: $filePath
-                 
-                 Format: Use conventional commits or simple present tense
-                 Examples: "Copy template for new feature", "Duplicate config for staging"
-                 
+                 File copied: $filePath
+
                  Commit message:""".stripMargin
           }
         }
@@ -222,18 +208,32 @@ object OllamaClient {
             .trim
             .replaceAll("^[\"'`]", "") // Remove leading quotes
             .replaceAll("[\"'`]$", "") // Remove trailing quotes
-            .replaceAll("^(Commit message:|Message:|Here's the commit message:|The commit message is:)\\s*", "") // Remove common prefixes
-            .replaceAll("\\n.*", "") // Take only the first line
+            .replaceAll("^(Commit message:|Message:|Here's the commit message:|The commit message is:|Here are|examples?).*?:\\s*", "") // Remove common prefixes
+            .replaceAll("(?s)\\n.*", "") // Take only the first line (including multiline)
+            .replaceAll("^\\d+\\.\\s*", "") // Remove numbered list items
+            .replaceAll("^[-*]\\s*", "") // Remove bullet points
+            .replaceAll("```.*?```", "") // Remove code blocks
             .trim
           
+          // If still too verbose or contains multiple sentences, take just the first meaningful part
+          val firstSentence = cleaned.split("[.!?]")(0).trim
+          val result = if (firstSentence.length < cleaned.length && firstSentence.nonEmpty) firstSentence else cleaned
+
           // Ensure it doesn't end with a period (git convention)
-          val withoutPeriod = if (cleaned.endsWith(".")) cleaned.dropRight(1) else cleaned
-          
-          // Capitalize first letter if it's not already
-          if (withoutPeriod.nonEmpty && withoutPeriod.head.isLower) {
-            withoutPeriod.head.toUpper + withoutPeriod.tail
+          val withoutPeriod = if (result.endsWith(".")) result.dropRight(1) else result
+
+          // If it's still empty or too long, provide a fallback
+          if (withoutPeriod.trim.isEmpty) {
+            "Update files"
+          } else if (withoutPeriod.length > 100) {
+            withoutPeriod.take(97) + "..."
           } else {
-            withoutPeriod
+            // Capitalize first letter if it's not already
+            if (withoutPeriod.nonEmpty && withoutPeriod.head.isLower) {
+              withoutPeriod.head.toUpper + withoutPeriod.tail
+            } else {
+              withoutPeriod
+            }
           }
         }
       }
