@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CONTRIBUTING.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+html,footer,header{
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Custom MD PDF CSS
+ */
+html,footer,header{
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+
+ }
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///Users/rcs/git-mcp-commit-message/R%3A%5C2.Travail%5C1.Enseignement%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css"><link rel="stylesheet" href="file:///Users/rcs/git-mcp-commit-message/D%3A%5Crdaros%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css">
+</head>
+
+<body>
+    <h1 id="%F0%9F%A4%9D-contributing-to-mcp-git-ollama-server">🤝 Contributing to MCP Git-Ollama Server</h1>
+<p><strong>Thank you for your interest in contributing!</strong> This project is more than just a tool—it's a showcase of modern functional programming and a learning resource for the Scala community.</p>
+<h2 id="%F0%9F%8E%AF-what-were-looking-for">🎯 What We're Looking For</h2>
+<h3 id="%F0%9F%94%A5-high-impact-contributions">🔥 High-Impact Contributions</h3>
+<ul>
+<li><strong>Performance optimizations</strong> using functional programming techniques</li>
+<li><strong>New AI model integrations</strong> beyond Ollama</li>
+<li><strong>Advanced functional programming patterns</strong> (Free monads, MTL, etc.)</li>
+<li><strong>IDE integrations</strong> for VS Code, IntelliJ, Vim, Emacs</li>
+<li><strong>Documentation improvements</strong> with real-world examples</li>
+</ul>
+<h3 id="%F0%9F%A7%A0-learning-opportunities">🧠 Learning Opportunities</h3>
+<p>Perfect for developers wanting to learn:</p>
+<ul>
+<li><strong>Cats Effect</strong> and pure functional programming</li>
+<li><strong>Tagless Final</strong> pattern implementation</li>
+<li><strong>HTTP4s</strong> for functional HTTP clients</li>
+<li><strong>Circe</strong> for JSON handling</li>
+<li><strong>Model Context Protocol</strong> integration</li>
+</ul>
+<h2 id="%F0%9F%9A%80-quick-start-for-contributors">🚀 Quick Start for Contributors</h2>
+<h3 id="1-development-setup">1. Development Setup</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Clone and build</span>
+git <span class="hljs-built_in">clone</span> https://github.com/zlovtnik/git-mcp-commit-message.git
+<span class="hljs-built_in">cd</span> git-mcp-commit-message
+sbt compile
+
+<span class="hljs-comment"># Run tests</span>
+sbt <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># Start development server</span>
+sbt run
+</div></code></pre>
+<h3 id="2-project-structure">2. Project Structure</h3>
+<pre class="hljs"><code><div>src/main/scala/com/example/mcpgit/
+├── core/           # Business logic and processing
+├── git/            # Git operations and change analysis
+├── ollama/         # AI model integration
+├── server/         # MCP protocol handling
+├── config/         # Configuration management
+└── FunctionalMain.scala  # Application entry point
+</div></code></pre>
+<h3 id="3-architecture-principles">3. Architecture Principles</h3>
+<ul>
+<li><strong>Pure Functions</strong>: No side effects, referential transparency</li>
+<li><strong>Tagless Final</strong>: Service algebras for testability</li>
+<li><strong>Error Handling</strong>: Use <code>EitherT</code> for composable error handling</li>
+<li><strong>Resource Safety</strong>: All resources managed with <code>Resource[F, _]</code></li>
+<li><strong>Type Safety</strong>: Opaque types and validated construction</li>
+</ul>
+<h2 id="%F0%9F%8E%A8-contribution-areas">🎨 Contribution Areas</h2>
+<h3 id="%F0%9F%94%A7-core-features">🔧 Core Features</h3>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0"></label><strong>Caching Layer</strong>: Cache AI responses for similar diffs</li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1"></label><strong>Template System</strong>: Configurable commit message templates</li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2"></label><strong>Multi-Model Support</strong>: Compare outputs from different models</li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3"></label><strong>Batch Processing</strong>: Optimize for large repositories</li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4"></label><strong>Streaming</strong>: Handle massive repositories efficiently</li>
+</ul>
+<h3 id="%F0%9F%8C%90-integrations">🌐 Integrations</h3>
+<ul>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5"></label><strong>VS Code Extension</strong>: Native MCP client integration</li>
+<li><input type="checkbox" id="checkbox6"><label for="checkbox6"></label><strong>IntelliJ Plugin</strong>: IDEA ecosystem support</li>
+<li><input type="checkbox" id="checkbox7"><label for="checkbox7"></label><strong>GitHub Actions</strong>: CI/CD workflow integration</li>
+<li><input type="checkbox" id="checkbox8"><label for="checkbox8"></label><strong>Pre-commit Hooks</strong>: Git hook integration</li>
+<li><input type="checkbox" id="checkbox9"><label for="checkbox9"></label><strong>CLI Tool</strong>: Standalone command-line interface</li>
+</ul>
+<h3 id="%E2%9A%A1-performance">⚡ Performance</h3>
+<ul>
+<li><input type="checkbox" id="checkbox10"><label for="checkbox10"></label><strong>Memory Optimization</strong>: Reduce heap usage for large repos</li>
+<li><input type="checkbox" id="checkbox11"><label for="checkbox11"></label><strong>Parallel Processing</strong>: Multi-model concurrent analysis</li>
+<li><input type="checkbox" id="checkbox12"><label for="checkbox12"></label><strong>Native Image</strong>: GraalVM native compilation</li>
+<li><input type="checkbox" id="checkbox13"><label for="checkbox13"></label><strong>Benchmarking</strong>: Performance testing framework</li>
+<li><input type="checkbox" id="checkbox14"><label for="checkbox14"></label><strong>Profiling</strong>: Memory and CPU profiling tools</li>
+</ul>
+<h3 id="%F0%9F%93%9A-documentation">📚 Documentation</h3>
+<ul>
+<li><input type="checkbox" id="checkbox15"><label for="checkbox15"></label><strong>Architecture Guide</strong>: Deep dive into FP patterns</li>
+<li><input type="checkbox" id="checkbox16"><label for="checkbox16"></label><strong>Tutorial Series</strong>: Learning functional programming</li>
+<li><input type="checkbox" id="checkbox17"><label for="checkbox17"></label><strong>API Documentation</strong>: Comprehensive API docs</li>
+<li><input type="checkbox" id="checkbox18"><label for="checkbox18"></label><strong>Video Tutorials</strong>: Screencast explanations</li>
+<li><input type="checkbox" id="checkbox19"><label for="checkbox19"></label><strong>Use Case Examples</strong>: Real-world scenarios</li>
+</ul>
+<h2 id="%F0%9F%A7%AA-testing-guidelines">🧪 Testing Guidelines</h2>
+<h3 id="functional-testing-patterns">Functional Testing Patterns</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Test with Cats Effect testing utilities</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GitServiceSpec</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AsyncFreeSpec</span> <span class="hljs-keyword">with</span> <span class="hljs-title">AsyncIOSpec</span> </span>{
+  <span class="hljs-string">"GitService"</span> - {
+    <span class="hljs-string">"should parse git status correctly"</span> in {
+      <span class="hljs-keyword">val</span> gitService = <span class="hljs-type">GitService</span>.impl[<span class="hljs-type">IO</span>]
+      gitService.getStatus(<span class="hljs-string">"/path/to/repo"</span>).asserting { changes =&gt;
+        changes should have size <span class="hljs-number">3</span>
+        changes.head.changeType shouldBe <span class="hljs-type">ChangeType</span>.<span class="hljs-type">Modified</span>
+      }
+    }
+  }
+}
+</div></code></pre>
+<h3 id="property-based-testing">Property-Based Testing</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Use ScalaCheck for property-based tests</span>
+<span class="hljs-string">"RepoPath validation"</span> - {
+  <span class="hljs-string">"should accept valid paths"</span> in {
+    forAll(validPathGen) { path =&gt;
+      <span class="hljs-type">RepoPath</span>(path) shouldBe a[<span class="hljs-type">Right</span>[_, _]]
+    }
+  }
+}
+</div></code></pre>
+<h2 id="%F0%9F%93%9D-code-style">📝 Code Style</h2>
+<h3 id="functional-programming-guidelines">Functional Programming Guidelines</h3>
+<ul>
+<li><strong>Use <code>F[_]</code> abstractions</strong> instead of concrete types like <code>IO</code></li>
+<li><strong>Prefer <code>EitherT</code></strong> for error handling over exceptions</li>
+<li><strong>Use opaque types</strong> for domain modeling</li>
+<li><strong>Leverage type classes</strong> for polymorphic behavior</li>
+<li><strong>Keep functions pure</strong> and side effects in <code>F[_]</code></li>
+</ul>
+<h3 id="scala-style">Scala Style</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// ✅ Good: Tagless final with error handling</span>
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">UserService</span>[<span class="hljs-type">F</span>[_]] </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getUser</span></span>(id: <span class="hljs-type">UserId</span>): <span class="hljs-type">F</span>[<span class="hljs-type">Either</span>[<span class="hljs-type">UserError</span>, <span class="hljs-type">User</span>]]
+}
+
+<span class="hljs-comment">// ✅ Good: Opaque types for type safety</span>
+opaque <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">UserId</span> </span>= <span class="hljs-type">String</span>
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">UserId</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>(value: <span class="hljs-type">String</span>): <span class="hljs-type">Either</span>[<span class="hljs-type">ValidationError</span>, <span class="hljs-type">UserId</span>] = 
+    <span class="hljs-keyword">if</span> (value.nonEmpty) <span class="hljs-type">Right</span>(value) <span class="hljs-keyword">else</span> <span class="hljs-type">Left</span>(<span class="hljs-type">ValidationError</span>(<span class="hljs-string">"Empty user ID"</span>))
+}
+
+<span class="hljs-comment">// ✅ Good: Resource management</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createService</span></span>[<span class="hljs-type">F</span>[_]: <span class="hljs-type">Async</span>]: <span class="hljs-type">Resource</span>[<span class="hljs-type">F</span>, <span class="hljs-type">UserService</span>[<span class="hljs-type">F</span>]] =
+  <span class="hljs-type">HttpClient</span>.resource[<span class="hljs-type">F</span>].map(<span class="hljs-type">UserService</span>.impl[<span class="hljs-type">F</span>])
+</div></code></pre>
+<h2 id="%F0%9F%8E%AF-pr-guidelines">🎯 PR Guidelines</h2>
+<h3 id="before-submitting">Before Submitting</h3>
+<ul>
+<li><input type="checkbox" id="checkbox20"><label for="checkbox20"></label><strong>Tests pass</strong>: <code>sbt test</code></li>
+<li><input type="checkbox" id="checkbox21"><label for="checkbox21"></label><strong>Code compiles</strong>: <code>sbt compile</code></li>
+<li><input type="checkbox" id="checkbox22"><label for="checkbox22"></label><strong>Assembly works</strong>: <code>sbt assembly</code></li>
+<li><input type="checkbox" id="checkbox23"><label for="checkbox23"></label><strong>Manual testing</strong>: Verify MCP integration</li>
+<li><input type="checkbox" id="checkbox24"><label for="checkbox24"></label><strong>Documentation updated</strong>: README, FEATURES, etc.</li>
+</ul>
+<h3 id="pr-description-template">PR Description Template</h3>
+<pre class="hljs"><code><div><span class="hljs-section">## 🎯 What This PR Does</span>
+Brief description of the changes.
+
+<span class="hljs-section">## 🧪 Testing</span>
+<span class="hljs-bullet">- </span>[ ] Unit tests added/updated
+<span class="hljs-bullet">- </span>[ ] Integration tests pass
+<span class="hljs-bullet">- </span>[ ] Manual testing completed
+
+<span class="hljs-section">## 📚 Documentation</span>
+<span class="hljs-bullet">- </span>[ ] README updated if needed
+<span class="hljs-bullet">- </span>[ ] Code comments added
+<span class="hljs-bullet">- </span>[ ] API docs updated
+
+<span class="hljs-section">## 🔄 Breaking Changes</span>
+List any breaking changes and migration path.
+</div></code></pre>
+<h2 id="%F0%9F%8F%86-recognition">🏆 Recognition</h2>
+<h3 id="contributors-hall-of-fame">Contributors Hall of Fame</h3>
+<p>We celebrate contributors in multiple ways:</p>
+<ul>
+<li><strong>README acknowledgments</strong> for significant contributions</li>
+<li><strong>Social media shoutouts</strong> on project updates</li>
+<li><strong>Conference talk mentions</strong> when presenting the project</li>
+<li><strong>Learning resources</strong> featuring contributor examples</li>
+</ul>
+<h3 id="mentorship-opportunities">Mentorship Opportunities</h3>
+<ul>
+<li><strong>Code reviews</strong> with detailed functional programming feedback</li>
+<li><strong>Pair programming</strong> sessions for complex features</li>
+<li><strong>Architecture discussions</strong> for design decisions</li>
+<li><strong>Conference speaking</strong> opportunities to present work</li>
+</ul>
+<h2 id="%F0%9F%8C%9F-getting-started-ideas">🌟 Getting Started Ideas</h2>
+<h3 id="%F0%9F%9F%A2-beginner-friendly">🟢 Beginner Friendly</h3>
+<ul>
+<li><strong>Add new change type detection</strong> (copy, symlink, etc.)</li>
+<li><strong>Improve error messages</strong> with better context</li>
+<li><strong>Add configuration validation</strong> with clear errors</li>
+<li><strong>Write example integrations</strong> for different MCP clients</li>
+</ul>
+<h3 id="%F0%9F%9F%A1-intermediate">🟡 Intermediate</h3>
+<ul>
+<li><strong>Implement caching layer</strong> using Cats Effect <code>Ref</code></li>
+<li><strong>Add metrics collection</strong> with functional composition</li>
+<li><strong>Create template system</strong> with type-safe configuration</li>
+<li><strong>Build performance benchmarks</strong> using functional testing</li>
+</ul>
+<h3 id="%F0%9F%94%B4-advanced">🔴 Advanced</h3>
+<ul>
+<li><strong>Design streaming architecture</strong> for massive repositories</li>
+<li><strong>Implement Free monad</strong> for effect composition</li>
+<li><strong>Add distributed processing</strong> with functional concurrency</li>
+<li><strong>Create native image</strong> compilation with GraalVM</li>
+</ul>
+<h2 id="%F0%9F%92%AC-community">💬 Community</h2>
+<h3 id="getting-help">Getting Help</h3>
+<ul>
+<li><strong>GitHub Discussions</strong>: Ask questions and share ideas</li>
+<li><strong>Issues</strong>: Report bugs or request features</li>
+<li><strong>Discord/Slack</strong>: Real-time chat (links coming soon)</li>
+<li><strong>Code Reviews</strong>: Learn from detailed feedback</li>
+</ul>
+<h3 id="sharing-knowledge">Sharing Knowledge</h3>
+<ul>
+<li><strong>Blog Posts</strong>: Write about your contributions</li>
+<li><strong>Conference Talks</strong>: Present functional programming learnings</li>
+<li><strong>Tutorials</strong>: Create learning content</li>
+<li><strong>Videos</strong>: Record implementation explanations</li>
+</ul>
+<h2 id="%F0%9F%8E%93-learning-resources">🎓 Learning Resources</h2>
+<h3 id="functional-programming">Functional Programming</h3>
+<ul>
+<li><a href="https://typelevel.org/cats-effect/">Cats Effect Documentation</a></li>
+<li><a href="https://blog.scalac.io/exploring-tagless-final.html">Tagless Final Pattern</a></li>
+<li><a href="https://http4s.org/">HTTP4s Documentation</a></li>
+<li><a href="https://docs.scala-lang.org/scala3/">Scala 3 Reference</a></li>
+</ul>
+<h3 id="project-specific">Project-Specific</h3>
+<ul>
+<li><a href="https://modelcontextprotocol.io/">Model Context Protocol Spec</a></li>
+<li><a href="https://github.com/ollama/ollama/blob/main/docs/api.md">Ollama API Documentation</a></li>
+<li><a href="https://git-scm.com/docs/git-status">Git Porcelain Commands</a></li>
+</ul>
+<hr>
+<p><strong>Ready to contribute?</strong> Pick an issue, fork the repo, and let's build the future of AI-powered development tools together! 🚀</p>
+
+</body>
+
+</html>
