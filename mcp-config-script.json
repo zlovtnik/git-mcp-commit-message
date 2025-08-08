@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "git-ollama": {
+      "command": "/Users/rcs/git-mcp-commit-message/start-mcp-server.sh",
+      "args": [],
+      "cwd": "/Users/rcs/git-mcp-commit-message",
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["git_auto_commit"]
+    }
+  }
+}

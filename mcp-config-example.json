@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "git-ollama": {
+      "command": "java",
+      "args": [
+        "-Dcats.effect.warnOnNonMainThreadDetected=false",
+        "-Xmx2G",
+        "-Xms1G",
+        "-jar",
+        "/Users/rcs/git-mcp-commit-message/target/scala-3.3.6/mcp-git-ollama-server-assembly-0.1.0.jar"
+      ],
+      "cwd": "/Users/rcs/git-mcp-commit-message",
+      "env": {},
+      "disabled": false,
+      "autoApprove": ["git_auto_commit"]
+    }
+  }
+}
